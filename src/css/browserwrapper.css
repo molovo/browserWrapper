@@ -324,7 +324,7 @@
 .browser-window-controls.windows .tab.firefox {
 	margin-left: 0px;
 	top: 14px;
-	max-width: 60% !important;
+	max-width: 60%;
 }
 
 .browser-window-controls .tab.firefox .tab-wrapper {
@@ -346,7 +346,7 @@
 }
 
 .browser-window-controls.windows .tab.firefox .tab-wrapper {
-	max-width: 78% !important;
+	max-width: 78%;
 	white-space: nowrap;
 }
 .browser-window-controls.windows .tab.firefox .tabtext {
