@@ -324,6 +324,7 @@
 .browser-window-controls.windows .tab.firefox {
 	margin-left: 0px;
 	top: 14px;
+	max-width: 60% !important;
 }
 
 .browser-window-controls .tab.firefox .tab-wrapper {
@@ -342,6 +343,14 @@
 	box-shadow: inset 0px 1px 1px rgba(255,255,255,0.7);
 	overflow: hidden;
 	white-space: nowrap;
+}
+
+.browser-window-controls.windows .tab.firefox .tab-wrapper {
+	max-width: 78% !important;
+	white-space: nowrap;
+}
+.browser-window-controls.windows .tab.firefox .tabtext {
+	max-width: 80% !important;
 }
 
 .browser-window-controls .tab.firefox .tabtext,
@@ -436,6 +445,7 @@
 	-webkit-box-shadow: inset 0px 1px 1px rgb(245,245,245), 0px 1px 1px rgba(225,225,225,0.7);
 	box-shadow: inset 0px 1px 1px rgb(245,245,245), 0px 1px 1px rgba(225,225,225,0.7);
 	display: inline-block;
+	overflow-x: hidden;
 }
 
 .browser-gui-controls.firefox .address-bar-text, .browser-gui-controls.firefox .address-bar-icon {

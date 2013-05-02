@@ -39,12 +39,17 @@
         var height          = act.height();
         var width           = act.width();
 
+        if (width < 312) {
+            var firefoxBookmarkHide = 'style="display: none;"';
+        } else {
+            var firefoxBookmarkHide = '';
+        }
+
         var addressBarWidth = width - 154;
         var addressTxtWidth = width - 214;
         var guiHeight       = height + 34;
         var windowHeight    = height + 69;
         var marginDifference = 0;
-
 
         if ( defaults.os == 'windows') {
             var windowHeight = windowHeight + 2;
@@ -90,7 +95,7 @@
                             if (defaults.browser == 'chrome') {
                                 browserControls += '<img class="address-bar-bookmark" src="' + defaults.filePath + 'src/img/' + defaults.browser + '-address-bar-bookmark.png" /></span><img class="nav-button-settings" src="' + defaults.filePath + 'src/img/nav-button-settings.png" />';
                             } else if (defaults.browser == 'firefox') {
-                                browserControls += '<img class="address-bar-bookmark" src="' + defaults.filePath + 'src/img/' + defaults.browser + '-address-bar-bookmark.png" /></span><span class="address-bar firefox-google-search" style="width: ' + searchWidth + 'px;"><img class="address-bar-icon" src="' + defaults.filePath + '/src/img/google-search-icon.png" /><span class="address-bar-text">Search Google</span></span>'
+                                browserControls += '<img class="address-bar-bookmark"' + firefoxBookmarkHide + ' src="' + defaults.filePath + 'src/img/' + defaults.browser + '-address-bar-bookmark.png" /></span><span class="address-bar firefox-google-search" style="width: ' + searchWidth + 'px;"><img class="address-bar-icon" src="' + defaults.filePath + '/src/img/google-search-icon.png" /><span class="address-bar-text">Search Google</span></span>'
                             } else {
                                 browserControls += '</span>';
                             }
