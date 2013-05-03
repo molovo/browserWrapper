@@ -488,9 +488,9 @@
 
 .browser-gui-controls.firefox .address-bar-bookmark {
 	position: absolute;
-	right: 5px;
+	right:0;
 	margin-top: -2px;
-	padding-left: 5px;
+	padding: 0 5px;
 	background: white;
 }
 
