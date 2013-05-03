@@ -462,7 +462,7 @@
 	box-shadow: inset 0px 1px 1px rgb(245,245,245), 0px 1px 1px rgba(225,225,225,0.7);
 	display: inline-block;
 	white-space: nowrap;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .browser-gui-controls.firefox .address-bar.notsearch {
