@@ -47,6 +47,70 @@
         //grab current content of div so that it can be replaced
         var currentContent  = act.html();
 
+        if( defaults.os == 'detect' || defaults.browser == 'detect' ){
+            // based upon http://www.quirksmode.org/js/detect.html
+            var BrowserDetect = {
+                init: function () {
+                    //defaults to mac/chrome when not in list
+                    this.browser = this.searchString(this.dataBrowser) || "chrome";
+                    this.OS = this.searchString(this.dataOS) || "mac";
+                },
+                searchString: function (data) {
+                    for (var i=0;i<data.length;i++) {
+                        var dataString = data[i].string;
+                        var dataProp = data[i].prop;
+                        this.versionSearchString = data[i].versionSearch || data[i].identity;
+                        if (dataString) {
+                            if (dataString.indexOf(data[i].subString) != -1)
+                                return data[i].identity;
+                        }
+                        else if (dataProp)
+                            return data[i].identity;
+                    }
+                },
+                dataBrowser: [
+                    {
+                        string: navigator.userAgent,
+                        subString: "Chrome",
+                        identity: "chrome"
+                    },
+                    {
+                        string: navigator.vendor,
+                        subString: "Apple",
+                        identity: "safari"
+                    },
+                    {
+                        string: navigator.userAgent,
+                        subString: "Firefox",
+                        identity: "firefox"
+                    }
+                ],
+                dataOS : [
+                    {
+                        string: navigator.platform,
+                        subString: "Win",
+                        identity: "windows"
+                    },
+                    {
+                        string: navigator.platform,
+                        subString: "Mac",
+                        identity: "mac"
+                    },
+                    {
+                        string: navigator.platform,
+                        subString: "Linux",
+                        identity: "linux"
+                    }
+                ]
+
+            };
+            BrowserDetect.init();
+            if (defaults.os == 'detect') {defaults.os = BrowserDetect.OS;};
+            if (defaults.browser == 'detect') {defaults.browser = BrowserDetect.browser;};
+        }
+        
+
+
         //build the controls based on variables above
         if ( defaults.os == 'mac' ) {
             var windowButtons = '<img class="window-button red" src="' + defaults.filePath + 'img/red-button.png" /><img class="window-button yellow" src="' + defaults.filePath + 'img/yellow-button.png" /><img class="window-button green" src="' + defaults.filePath + 'img/green-button.png" />';
