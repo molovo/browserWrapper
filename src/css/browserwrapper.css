@@ -325,7 +325,7 @@
 	float: left;
 	clear: left;
 	white-space: nowrap;
-	overflow-x: hidden;
+	overflow: hidden;
 	z-index: 5;
 }
 
@@ -349,7 +349,7 @@
 	height: 26px !important;
 	-webkit-box-shadow: inset 0px 1px 1px rgba(255,255,255,0.7);
 	box-shadow: inset 0px 1px 1px rgba(255,255,255,0.7);
-	overflow-x: hidden;
+	overflow: hidden;
 	white-space: nowrap;
 }
 
@@ -363,12 +363,13 @@
 
 .browser-window-controls .tab.firefox .tabtext,
 .browser-window-controls .tab.firefox .favicon {
-	margin: 5px 2px 0 2px;
+	margin: 3px 2px 0 2px;
 	display: inline;
-	float: left;
+	/*float: left;*/
 	max-width: 150px;
 	white-space: nowrap;
 	overflow-x: hidden;
+	vertical-align: top;
 }
 
 .browser-window-controls .tab.firefox .favicon {
@@ -379,13 +380,16 @@
 .browser-window-controls .tab.firefox .tabtext {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 11px;
-	height: 13px !important;
+	height: 13px;
 	padding-top: 2px;
 	line-height: 13px;
-	max-width: 154px !important;
-	overflow: hidden;
+	max-width: 154px;
+	overflow-x: hidden;
+	overflow-y: hidden;
 	text-align: left;
 	white-space: nowrap;
+	position: relative;
+	top: 5px;
 }
 
 .browser-window-border.windows .browser-gui.firefox {
