@@ -8,7 +8,7 @@
     for both personal and
     commercial purposes.
 
-    v0.1 - 12/10/2012
+    v0.2 - 03/05/2013
 
 ***********************************/
 
