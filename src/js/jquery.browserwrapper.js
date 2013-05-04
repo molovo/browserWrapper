@@ -80,16 +80,23 @@
 
         if (contentEditable) {
             act.on('focus', '.address-bar-text[contenteditable]', function() {
+                // Take current value from address bar
                 var $this = $(this);
+
+                // Store in local data
                 $this.data('before', $this.html());
                 return $this;
             }).on('blur keypress paste', '.address-bar-text[contenteditable]', function(event) {
+                // Only capture enter keypress
                 var keyCode = event.keyCode || event.which;
                 if (keyCode !== 13) {
                     return true;
                 } else {
+                    // Stop enter keypress from adding new line
                     event.preventDefault();
                     event.stopImmediatePropagation();
+
+                    // if URL has changed, trigger change event
                     var $this = $(this);
                     if ($this.data('before') !== $this.html()) {
                         $this.trigger('change');
@@ -98,10 +105,29 @@
                 }
             }).find('.address-bar-text[contenteditable]').on('change', function() {
                 var $this = $(this);
-                act.find('iframe').attr('src', $this.html());
-                var newObj = act.find('object').clone().attr('data', $this.html());
+                var newURL = $this.html()
+
+                // check string for http, https or ftp. If not found, add http.
+                if (!newURL.match(/^(https?|ftp):\/\/(.*)/)) {
+                    newURL = 'http://' + newURL;
+                    $this.html(newURL);
+                }
+
+                // update iframe src directly
+                act.find('iframe').attr('src', newURL);
+
+                // for objects, object must be cloned, removed, and have the data source modified before re-adding to the DOM
+                var newObj = act.find('object').clone().attr('data', newURL);
                 act.find('object').remove();
                 act.find('.browser-content').append( newObj );
+
+                // Take a lucky guess as to the favicon location. If wrong, load the default
+                var newFavicon = newURL.split('/').splice(0,3).join('/')+'/favicon' + ('.ico' || '.png');
+                act.find('.favicon').attr('onerror', 'this.src=\'' + defaults.favicon + '\'').attr('src', newFavicon);
+
+                // Grab the title of the new page (Only works on same domain)
+                var newTitle = act.find('object' || 'iframe').document.title;
+                act.find('.tabtext').html( newTitle );
             });
         }
 
