@@ -175,6 +175,7 @@
             });
             act.addClass(themeName).load(defaults.theme + 'content.html', function() {
                 act.find('.browser-content-container').html(currentContent);
+                act.find('.tabtext').html(defaults.browserTitle);
                 act.find('.address-bar-text').html(defaults.browserURL);
                 act.find('.favicon').attr('src', defaults.favicon);
             });
