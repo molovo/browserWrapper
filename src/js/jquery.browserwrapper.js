@@ -75,11 +75,6 @@
                         identity: "chrome"
                     },
                     {
-                        string: navigator.vendor,
-                        subString: "Apple",
-                        identity: "safari"
-                    },
-                    {
                         string: navigator.userAgent,
                         subString: "Firefox",
                         identity: "firefox"
@@ -95,11 +90,6 @@
                         string: navigator.platform,
                         subString: "Mac",
                         identity: "mac"
-                    },
-                    {
-                        string: navigator.platform,
-                        subString: "Linux",
-                        identity: "linux"
                     }
                 ]
 
