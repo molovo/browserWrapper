@@ -27,7 +27,8 @@
             os:             'mac',
             browser:        'chrome',
             makeBrowserWork:false,
-            winVersion:     ''
+            winVersion:     '',
+            theme: false
         };
         //overwrite the defaults
         var options         = $.extend(defaults, options);
@@ -155,8 +156,29 @@
 
         var windowControls  = '<div class="browser-window-controls ' + defaults.os + ' ' + defaults.browser + '">' + windowButtons + browserTab + '</div>';
 
-        //expand div and repopulate with content and browser styling
-        act.html('<div class="browser-window-border ' + defaults.os + ' ' + defaults.winVersion + ' ' + defaults.browser + '" style="box-shadow:' + defaults.shadow + '">' + windowControls + '<div class="browser-gui ' + defaults.browser + '">' + browserControls + currentContent + '</div></div>').trigger('refresh');
+        if (!defaults.theme) {
+            //expand div and repopulate with content and browser styling
+            act.html('<div class="browser-window-border ' + defaults.os + ' ' + defaults.winVersion + ' ' + defaults.browser + '" style="box-shadow:' + defaults.shadow + '">' + windowControls + '<div class="browser-gui ' + defaults.browser + '">' + browserControls + currentContent + '</div></div>').trigger('refresh');
+        } else {
+            $('head').append('<link rel="stylesheet" href="' + defaults.theme + 'style.css" />');
+
+            var themeName = '';
+
+            $.ajax({
+                url: defaults.theme + 'theme-info.json',
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success:  function(data) {
+                    themeName = data.name;
+                }
+            });
+            act.addClass(themeName).load(defaults.theme + 'content.html', function() {
+                act.find('.browser-content-container').html(currentContent);
+                act.find('.address-bar-text').html(defaults.browserURL);
+                act.find('.favicon').attr('src', defaults.favicon);
+            });
+        }
 
         if (contentEditable) {
 
