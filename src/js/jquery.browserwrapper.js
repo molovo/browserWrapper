@@ -128,7 +128,7 @@
             }
         }
 
-        if(defaults.browser && default.browser !== 'false') {
+        if(defaults.browser && defaults.browser !== 'false') {
             var browserTab = '<span class="tab ' + defaults.browser + '"><span class="tab-wrapper"><img class="favicon" src="' + defaults.favicon + '" /><span class="tabtext">' + defaults.browserTitle + '</span></span></span>'
             var browserControls = '<div class="browser-gui-controls ' + defaults.browser + '">';
 
