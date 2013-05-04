@@ -129,7 +129,11 @@
                 }
                 browserControls += '<span class="address-bar notsearch"><img class="address-bar-icon" src="' + defaults.filePath + 'img/address-bar-icon.png" />';
             } else if (defaults.browser == 'firefox') {
+                if (contentEditable) {
+                    browserControls += '<a class="back-button"><img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-nav-buttons.png" /></a>';
+                } else {
                     browserControls += '<img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-nav-buttons.png" />';
+                }
                 browserControls += '<span class="address-bar notsearch"><img class="address-bar-icon" src="' + defaults.filePath + 'img/address-bar-icon.png" />';
             }
             browserControls += '<span class="address-bar-text" ' + contentEditable + '>' + defaults.browserURL + '</span>';
@@ -162,7 +166,7 @@
                 var $this = $(this);
 
                 // Store in local data
-                $this.data('before', $this.html());
+                act.data('before', $this.html());
                 return $this;
             }).on('blur keypress paste', '.address-bar-text[contenteditable]', function(event) {
                 // Only capture enter keypress
@@ -176,7 +180,7 @@
 
                     // if URL has changed, trigger change event
                     var $this = $(this);
-                    if ($this.data('before') !== $this.html()) {
+                    if (act.data('before') !== $this.html()) {
                         $this.trigger('change');
                     }
                     return $this;
@@ -188,43 +192,40 @@
                 // check string for http, https or ftp. If not found, add http.
                 if (!newURL.match(/^(https?|ftp):\/\/(.*)/)) {
                     newURL = 'http://' + newURL;
-                    $this.html(newURL);
                 }
 
                 rebuildBrowser.init(act, newURL);
-
-                // Make full screen button open iframe URL in a new tab
-                act.find('.window-button.green').wrap('<a href="' + newURL + '" target="_blank" />');
-                // Make back button work properly
-                act.find('.back-button').attr('href', $this.data('before')).on('click', function(event) {
-                    event.preventDefault();
-                    var forwardURL = act.find('iframe').attr('src') || act.find('object').attr('data');
-                    act.find('.forward-button').attr('href', forwardURL);
-                    rebuildBrowser.init(act, $(this).attr('href'));
-                    return false;
-                });
-                // Make forward button work properly
-                act.find('.forward-button').on('click', function(event) {
-                    event.preventDefault();
-                    var backURL = act.find('iframe').attr('src') || act.find('object').attr('data');
-                    act.find('.back-button').attr('href', backURL);
-                    rebuildBrowser.init(act, $(this).attr('href'));
-                    return false;
-                });
-                // Make refresh button work properly
-                act.find('.refresh-button').on('click'), function(event) {
-                    event.preventDefault();
-                    var refreshURL = act.find('iframe').attr('src') || act.find('object').attr('data');
-                    rebuildBrowser.init(act, refreshURL);
-                    return false;
-                }
-                // Make home button work properly
-                act.find('.home-button').on('click'), function(event) {
-                    event.preventDefault();
-                    var homeURL = act.data('originalURL');
-                    rebuildBrowser.init(act, homeURL);
-                    return false;
-                }
+                act.find('.back-button').attr('href', act.data('before'));
+            });
+            // Make back button work properly
+            act.find('.back-button').on('click', function(event) {
+                event.preventDefault();
+                var forwardURL = act.find('iframe').attr('src') || act.find('object').attr('data');
+                act.find('.forward-button').attr('href', forwardURL);
+                rebuildBrowser.init(act, $(this).attr('href'));
+                return false;
+            });
+            // Make forward button work properly
+            act.find('.forward-button').on('click', function(event) {
+                event.preventDefault();
+                var backURL = act.find('iframe').attr('src') || act.find('object').attr('data');
+                act.find('.back-button').attr('href', backURL);
+                rebuildBrowser.init(act, $(this).attr('href'));
+                return false;
+            });
+            // Make refresh button work properly
+            act.find('.refresh-button').on('click', function(event) {
+                event.preventDefault();
+                var refreshURL = act.find('iframe').attr('src') || act.find('object').attr('data');
+                rebuildBrowser.init(act, refreshURL);
+                return false;
+            });
+            // Make home button work properly
+            act.find('.home-button').on('click', function(event) {
+                event.preventDefault();
+                var homeURL = act.data('originalURL');
+                rebuildBrowser.init(act, homeURL);
+                return false;
             });
 
             var rebuildBrowser = {
@@ -246,6 +247,11 @@
                     // var newTitle = target.find('object' || 'iframe').document.title;
                     //target.find('.tabtext').html( newTitle );
 
+                    // Update addres bar
+                    target.find('.address-bar-text').html(url);
+
+                    // Make full screen button open iframe URL in a new tab
+                    target.find('.window-button.green').wrap('<a href="' + newURL + '" target="_blank" />');
                 }
             }
 

@@ -457,6 +457,10 @@
 	margin: 5px 0 0 4px;
 }
 
+.browser-gui-controls.firefox .back-button:hover .nav-buttons {
+	opacity: .5;
+}
+
 .browser-gui-controls.firefox .nav-button-settings {
 	float: right;
 	margin: 8px 9px 0 0;
