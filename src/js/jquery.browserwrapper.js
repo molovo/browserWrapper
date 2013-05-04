@@ -156,7 +156,7 @@
         var windowControls  = '<div class="browser-window-controls ' + defaults.os + ' ' + defaults.browser + '">' + windowButtons + browserTab + '</div>';
 
         //expand div and repopulate with content and browser styling
-        act.html('<div class="browser-window-border ' + defaults.os + ' ' + defaults.browser + '" style="box-shadow:' + defaults.shadow + '">' + windowControls + '<div class="browser-gui ' + defaults.browser + '">' + browserControls + currentContent + '</div></div>').trigger('refresh');
+        act.html('<div class="browser-window-border ' + defaults.os + ' ' + defaults.winVersion + ' ' + defaults.browser + '" style="box-shadow:' + defaults.shadow + '">' + windowControls + '<div class="browser-gui ' + defaults.browser + '">' + browserControls + currentContent + '</div></div>').trigger('refresh');
 
         if (contentEditable) {
 

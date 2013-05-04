@@ -98,6 +98,10 @@
 	padding: 4px;
 }
 
+.browser-window-border.windows.windows7 {
+	background: rgba(185,225,255,0.3);
+}
+
 .browser-window-controls.windows {
 	height: 29px;
 	width: 100%;
@@ -116,14 +120,17 @@
 
 .browser-window-controls.windows .window-button {
 	float: right;
-	margin-top: 1px;
-	margin-right: -1px;
+	margin-right: 0px;
+	position: relative;
+	top: -5px;
 }
 .browser-window-controls.windows a.window-button {
-	position: relative;
-	top: -4px;
+	top: -3px;
 }
-.browser-window-controls.windows .window-button.windows7{
+.browser-window-controls.windows a.window-button.windows8 {
+	top: -9px;
+}
+.browser-window-controls.windows .window-button.windows7 {
 	margin-top: -6px;
 }
 
