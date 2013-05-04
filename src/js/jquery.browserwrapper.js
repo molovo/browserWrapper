@@ -192,7 +192,11 @@
                     // if URL has changed, trigger change event
                     var $this = $(this);
                     if (act.data('before') !== $this.html()) {
-                        act.find('.back-button').attr('href', act.data('before'));
+                        /*if ($this.html() !== defaults.browserURL) {
+                            act.find('.back-button').attr('href', act.data('before'));
+                        } else {
+                            act.find('.back-button').removeAttr('href');
+                        }*/
                         $this.trigger('change');
                     }
                     return $this;
@@ -260,6 +264,13 @@
 
                     // Update address bar
                     target.find('.address-bar-text').html(url);
+
+                    // Update back button
+                    if (url !== defaults.browserURL) {
+                        target.find('.back-button').attr('href', act.data('before'));
+                    } else {
+                        target.find('.back-button').removeAttr('href');
+                    }
 
                     // Store new url in local data for back button
                     act.data('before', url);
