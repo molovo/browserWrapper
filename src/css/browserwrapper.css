@@ -87,14 +87,14 @@
 	min-width: 338px !important;
 	min-height: 69px !important;
 	border: 1px solid rgba(255,255,255,0.8);
-	background: rgba(185,225,255,0.3);
+	background: rgba(251,251,251,1);
 	padding: 4px;
 }
 
 .browser-window-controls.windows {
-	height: 38px;
+	height: 29px;
 	width: 100%;
-/*	border-bottom: 1px solid rgb(145,145,145);*/
+	border-bottom: 1px solid rgb(145,145,145);
 /*	background: rgba(255,255,255,0.4);*/
 	border-radius: 0;
 
@@ -105,13 +105,15 @@
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 9px 0 0 4px;
 }
 
 .browser-window-controls.windows .window-button {
 	float: right;
-	margin-top: -14px;
+	margin-top: 1px;
 	margin-right: -1px;
+}
+.browser-window-controls.windows .window-button.windows7{
+	margin-top: -6px;
 }
 
 .browser-window-controls.windows .window-button.red, .browser-window-controls.windows .window-button.yellow {
@@ -140,6 +142,7 @@
 	height: 26px;
 	padding: 0 37px 0 16px;
 	top: 3px;
+	left: 3px;
 	float: left;
 	overflow: hidden;
 	z-index: 5;
@@ -302,10 +305,6 @@
 	margin-top: 0px;
 }
 
-.browser-window-controls.windows.firefox {
-	height: 47px;
-}
-
 .browser-window-controls .tab.firefox {
 	background-image: url(../img/firefox-tab-left.png), url(../img/firefox-tab-right.png);
 	background-position: top left, top right;
@@ -321,6 +320,7 @@
 	height: 24px !important;
 	padding: 0 39px 0 7px;
 	top: 5px;
+	left: 3px;
 	margin-left: -6px;
 	float: left;
 	clear: left;
@@ -331,7 +331,6 @@
 
 .browser-window-controls.windows .tab.firefox {
 	margin-left: 0px;
-	top: 14px;
 	max-width: 60%;
 }
 

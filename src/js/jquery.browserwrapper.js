@@ -25,7 +25,8 @@
             filePath:       'browserWrapper/src/',                          //path to browserWrapper
             shadow:         '0px 5px 15px rgba(0,0,0,0.3)',             //adds a box-shadow to the browser, follows CSS syntax, use '0' to remove
             os:             'mac',
-            browser:        'chrome'
+            browser:        'chrome',
+            winVersion:     ''
         };
         //overwrite the defaults
         var options         = $.extend(defaults, options);
@@ -37,6 +38,10 @@
         var addressBar      = $('.browser-gui .address-bar');
         var height          = act.height();
         var width           = act.width();
+
+        if(defaults.os == 'windows' && defaults.winVersion != 'windows7'){
+            defaults.winVersion = 'windows8';
+        }
 
 /*        if (width < 312) {
             var firefoxBookmarkHide = 'style="display: none;"';
@@ -98,14 +103,12 @@
             if (defaults.os == 'detect') {defaults.os = BrowserDetect.OS;};
             if (defaults.browser == 'detect') {defaults.browser = BrowserDetect.browser;};
         }
-        
-
 
         //build the controls based on variables above
         if ( defaults.os == 'mac' ) {
             var windowButtons = '<img class="window-button red" src="' + defaults.filePath + 'img/red-button.png" /><img class="window-button yellow" src="' + defaults.filePath + 'img/yellow-button.png" /><img class="window-button green" src="' + defaults.filePath + 'img/green-button.png" />';
         } else if ( defaults.os == 'windows' ) {
-            var windowButtons = '<img class="window-button" src="' + defaults.filePath + 'img/windows-buttons.png" />';
+            var windowButtons = '<img class="window-button ' + defaults.winVersion + '" src="' + defaults.filePath + 'img/' + defaults.winVersion + '-buttons.png" />';
         }
         var browserTab = '<span class="tab ' + defaults.browser + '"><span class="tab-wrapper"><img class="favicon" src="' + defaults.favicon + '" /><span class="tabtext">' + defaults.browserTitle + '</span></span></span>'
         var browserControls = '<div class="browser-gui-controls ' + defaults.browser + '"><img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-nav-buttons.png" /><span class="address-bar notsearch">';
