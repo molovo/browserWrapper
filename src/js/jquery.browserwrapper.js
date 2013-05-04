@@ -192,13 +192,14 @@
                     // if URL has changed, trigger change event
                     var $this = $(this);
                     if (act.data('before') !== $this.html()) {
+                        act.find('.back-button').attr('href', act.data('before'));
                         $this.trigger('change');
                     }
                     return $this;
                 }
             }).find('.address-bar-text[contenteditable]').on('change', function() {
                 var $this = $(this);
-                var newURL = $this.html()
+                var newURL = $this.html();
 
                 // check string for http, https or ftp. If not found, add http.
                 if (!newURL.match(/^(https?|ftp):\/\/(.*)/)) {
@@ -206,7 +207,6 @@
                 }
 
                 rebuildBrowser.init(act, newURL);
-                act.find('.back-button').attr('href', act.data('before'));
             });
             // Make back button work properly
             act.find('.back-button').on('click', function(event) {
@@ -258,8 +258,11 @@
                     // var newTitle = target.find('object' || 'iframe').document.title;
                     //target.find('.tabtext').html( newTitle );
 
-                    // Update addres bar
+                    // Update address bar
                     target.find('.address-bar-text').html(url);
+
+                    // Store new url in local data for back button
+                    act.data('before', url);
 
                     // Make full screen button open iframe URL in a new tab
                     target.find('.window-button.green').attr('href', url);
