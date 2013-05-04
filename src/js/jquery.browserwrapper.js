@@ -114,9 +114,18 @@
 
         //build the controls based on variables above
         if ( defaults.os == 'mac' ) {
-            var windowButtons = '<img class="window-button red" src="' + defaults.filePath + 'img/red-button.png" /><img class="window-button yellow" src="' + defaults.filePath + 'img/yellow-button.png" /><img class="window-button green" src="' + defaults.filePath + 'img/green-button.png" />';
+            var windowButtons = '<img class="window-button red" src="' + defaults.filePath + 'img/red-button.png" /><img class="window-button yellow" src="' + defaults.filePath + 'img/yellow-button.png" />';
+            if (contentEditable) {
+                windowButtons += '<a class="window-button green" href="' + defaults.browserURL + '" target="_blank"><img src="' + defaults.filePath + 'img/green-button.png" /></a>';
+            } else {
+                windowButtons += '<img class="window-button green" src="' + defaults.filePath + 'img/green-button.png" />';
+            }
         } else if ( defaults.os == 'windows' ) {
-            var windowButtons = '<img class="window-button" src="' + defaults.filePath + 'img/windows-buttons.png" />';
+            if (contentEditable) {
+                var windowButtons = '<a class="window-button green" href="' + defaults.browserURL + '" target="_blank"><img src="' + defaults.filePath + 'img/windows-buttons.png" /></a>';
+            } else {
+                var windowButtons = '<img class="window-button green" src="' + defaults.filePath + 'img/windows-buttons.png" />';
+            }
         }
         if(defaults.browser) {
         var browserTab = '<span class="tab ' + defaults.browser + '"><span class="tab-wrapper"><img class="favicon" src="' + defaults.favicon + '" /><span class="tabtext">' + defaults.browserTitle + '</span></span></span>'
@@ -140,7 +149,7 @@
             if (defaults.browser == 'chrome') {
                 browserControls += '<img class="address-bar-bookmark" src="' + defaults.filePath + 'img/' + defaults.browser + '-address-bar-bookmark.png" /></span><img class="nav-button-settings" src="' + defaults.filePath + 'img/nav-button-settings.png" />';
             } else if (defaults.browser == 'firefox') {
-                browserControls += '<img class="address-bar-bookmark" src="' + defaults.filePath + 'img/' + defaults.browser + '-address-bar-bookmark.png" /></span><span class="address-bar firefox-google-search"><img class="address-bar-icon" src="' + defaults.filePath + 'img/google-search-icon.png" /><span class="address-bar-text">Search Google</span></span>'
+                browserControls += '<span class="address-bar-bookmark"><img class="address-bar-bookmark-button" src="' + defaults.filePath + 'img/' + defaults.browser + '-address-bar-bookmark-button.png" /><a class="refresh-button"><img src="' + defaults.filePath + 'img/' + defaults.browser + '-refresh-button.png" /></a></span></span><span class="address-bar firefox-google-search"><img class="address-bar-icon" src="' + defaults.filePath + 'img/google-search-icon.png" /><span class="address-bar-text">Search Google</span></span>'
             } else {
                 browserControls += '</span>';
             }
@@ -251,7 +260,7 @@
                     target.find('.address-bar-text').html(url);
 
                     // Make full screen button open iframe URL in a new tab
-                    target.find('.window-button.green').wrap('<a href="' + newURL + '" target="_blank" />');
+                    target.find('.window-button.green').attr('href', url);
                 }
             }
 

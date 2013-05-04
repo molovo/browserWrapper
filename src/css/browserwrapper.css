@@ -69,6 +69,13 @@
 	float: left;
 }
 
+.browser-window-controls.mac a.window-button {
+	position: relative;
+	top: -9px;
+	height: 1px;
+	width: 1px;
+}
+
 .browser-window-controls.mac .window-button.red, .browser-window-controls.mac .window-button.yellow {
 	margin-right: 7px;
 }
@@ -112,6 +119,10 @@
 	float: right;
 	margin-top: -14px;
 	margin-right: -1px;
+}
+.browser-window-controls.windows a.window-button {
+	position: relative;
+	top: -4px;
 }
 
 .browser-window-controls.windows .window-button.red, .browser-window-controls.windows .window-button.yellow {
@@ -260,8 +271,12 @@
 .browser-gui-controls.chrome a:nth-of-type(1)[href]:hover img,
 .browser-gui-controls.chrome a:nth-of-type(2)[href]:hover img,
 .browser-gui-controls.chrome a:nth-of-type(3)[href]:hover img,
-.browser-gui-controls.chrome a:nth-of-type(4)[href]:hover img {
-	opacity: 0.5;
+.browser-gui-controls.chrome a:nth-of-type(4)[href]:hover img,
+.browser-gui-controls.chrome a:not(.forward-button):not([href]) img,
+.browser-gui-controls.chrome a[href=""]:not(.forward-button) img {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+	opacity: .4;
 }
 
 .browser-gui-controls.chrome .address-bar {
@@ -521,6 +536,7 @@
 	margin-top: -2px;
 	padding: 0 5px;
 	background: white;
+	top: -4px;
 }
 
 .browser-gui-controls.firefox .address-bar.firefox-google-search {
