@@ -26,7 +26,8 @@
             shadow:         '0px 5px 15px rgba(0,0,0,0.3)',             //adds a box-shadow to the browser, follows CSS syntax, use '0' to remove
             os:             'mac',
             browser:        'chrome',
-            makeBrowserWork:false
+            makeBrowserWork:false,
+            winVersion:     ''
         };
         //overwrite the defaults
         var options         = $.extend(defaults, options);
@@ -38,6 +39,10 @@
         var addressBar      = $('.browser-gui .address-bar');
         var height          = act.height();
         var width           = act.width();
+
+        if(defaults.os == 'windows' && defaults.winVersion != 'windows7'){
+            defaults.winVersion = 'windows8';
+        }
 
         //grab current content of div so that it can be replaced
         var currentContent  = act.html();
@@ -74,12 +79,6 @@
                         subString: "Chrome",
                         identity: "chrome"
                     },
-                    //Commented out until added
-                    /*{
-                        string: navigator.vendor,
-                        subString: "Apple",
-                        identity: "safari"
-                    },*/
                     {
                         string: navigator.userAgent,
                         subString: "Firefox",
@@ -97,13 +96,6 @@
                         subString: "Mac",
                         identity: "mac"
                     }
-                    //Commented out until added
-                    /*,
-                    {
-                        string: navigator.platform,
-                        subString: "Linux",
-                        identity: "linux"
-                    }*/
                 ]
 
             };
@@ -122,9 +114,9 @@
             }
         } else if ( defaults.os == 'windows' ) {
             if (contentEditable) {
-                var windowButtons = '<a class="window-button green" href="' + defaults.browserURL + '" target="_blank"><img src="' + defaults.filePath + 'img/windows-buttons.png" /></a>';
+                var windowButtons = '<a class="window-button green ' + defaults.winVersion + '" href="' + defaults.browserURL + '" target="_blank"><img src="' + defaults.filePath + 'img/' + defaults.winVersion + '-buttons.png" /></a>';
             } else {
-                var windowButtons = '<img class="window-button green" src="' + defaults.filePath + 'img/windows-buttons.png" />';
+                var windowButtons = '<img class="window-button green" src="' + defaults.filePath + 'img/' + defaults.winVersion + '-buttons.png" />';
             }
         }
 
