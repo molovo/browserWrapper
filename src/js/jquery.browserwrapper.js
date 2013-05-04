@@ -99,7 +99,9 @@
             }).find('.address-bar-text[contenteditable]').on('change', function() {
                 var $this = $(this);
                 act.find('iframe').attr('src', $this.html());
-                act.find('object').attr('data', $this.html());
+                var newObj = act.find('object').clone().attr('data', $this.html());
+                act.find('object').remove();
+                act.find('.browser-content').append( newObj );
             });
         }
 
