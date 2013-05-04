@@ -25,7 +25,8 @@
             filePath:       'browserWrapper/src/',                          //path to browserWrapper
             shadow:         '0px 5px 15px rgba(0,0,0,0.3)',             //adds a box-shadow to the browser, follows CSS syntax, use '0' to remove
             os:             'mac',
-            browser:        'chrome'
+            browser:        'chrome',
+            makeBrowserWork:false
         };
         //overwrite the defaults
         var options         = $.extend(defaults, options);
@@ -47,6 +48,10 @@
         //grab current content of div so that it can be replaced
         var currentContent  = act.html();
 
+        if (defaults.makeBrowserWork && (currentContent.match(/<iframe/) || currentContent.match(/<object/))) {
+            var contentEditable = 'contenteditable="true"';
+        }
+
         //build the controls based on variables above
         if ( defaults.os == 'mac' ) {
             var windowButtons = '<img class="window-button red" src="' + defaults.filePath + 'img/red-button.png" /><img class="window-button yellow" src="' + defaults.filePath + 'img/yellow-button.png" /><img class="window-button green" src="' + defaults.filePath + 'img/green-button.png" />';
@@ -58,7 +63,7 @@
                 if (defaults.browser == 'chrome') {
                     browserControls += '<img class="address-bar-icon" src="' + defaults.filePath + 'img/address-bar-icon.png" />';
                 }
-                browserControls += '<span class="address-bar-text">' + defaults.browserURL + '</span>';
+                browserControls += '<span class="address-bar-text" ' + contentEditable + '>' + defaults.browserURL + '</span>';
                 if (defaults.browser == 'chrome') {
                     browserControls += '<img class="address-bar-bookmark" src="' + defaults.filePath + 'img/' + defaults.browser + '-address-bar-bookmark.png" /></span><img class="nav-button-settings" src="' + defaults.filePath + 'img/nav-button-settings.png" />';
                 } else if (defaults.browser == 'firefox') {
@@ -72,6 +77,26 @@
 
         //expand div and repopulate with content and browser styling
         act.html('<div class="browser-window-border ' + defaults.os + ' ' + defaults.browser + '" style="box-shadow:' + defaults.shadow + '">' + windowControls + '<div class="browser-gui ' + defaults.browser + '">' + browserControls + currentContent + '</div></div>').trigger('refresh');
+
+        if (contentEditable) {
+            act.on('focus', '.address-bar-text[contenteditable]', function() {
+                var $this = $(this);
+                $this.data('before', $this.html());
+                return $this;
+            }).on('blur keyup paste', '.address-bar-text[contenteditable]', function(event) {
+                var keyCode = event.keyCode || event.which;
+                if (keyCode !== 13) return false;
+
+                var $this = $(this);
+                if ($this.data('before') !== $this.html()) $this.trigger('change');
+                return $this;
+            }).find('.address-bar-text[contenteditable]').on('change', function() {
+                alert('Tada!');
+                act.find('iframe').empty();
+                act.find('iframe').attr('src', $this.html());
+                act.find('object').attr('data', $this.html());
+            });
+        }
 
     }
 })(jQuery);
