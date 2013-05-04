@@ -83,15 +83,21 @@
                 var $this = $(this);
                 $this.data('before', $this.html());
                 return $this;
-            }).on('blur keyup paste', '.address-bar-text[contenteditable]', function(event) {
+            }).on('blur keypress paste', '.address-bar-text[contenteditable]', function(event) {
                 var keyCode = event.keyCode || event.which;
-                if (keyCode !== 13) return false;
-
-                var $this = $(this);
-                if ($this.data('before') !== $this.html()) $this.trigger('change');
-                return $this;
+                if (keyCode !== 13) {
+                    return true;
+                } else {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    var $this = $(this);
+                    if ($this.data('before') !== $this.html()) {
+                        $this.trigger('change');
+                    }
+                    return $this;
+                }
             }).find('.address-bar-text[contenteditable]').on('change', function() {
-                alert('Tada!');
+                var $this = $(this);
                 act.find('iframe').attr('src', $this.html());
                 act.find('object').attr('data', $this.html());
             });
