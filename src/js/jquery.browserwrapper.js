@@ -116,12 +116,14 @@
             if (contentEditable) {
                 var windowButtons = '<a class="window-button green ' + defaults.winVersion + '" href="' + defaults.browserURL + '" target="_blank"><img src="' + defaults.filePath + 'img/' + defaults.winVersion + '-buttons.png" /></a>';
             } else {
-                var windowButtons = '<img class="window-button green" src="' + defaults.filePath + 'img/windows-buttons.png" />';
+                var windowButtons = '<img class="window-button green" src="' + defaults.filePath + 'img/' + defaults.winVersion + '-buttons.png" />';
             }
         }
+
         if(defaults.browser) {
-        var browserTab = '<span class="tab ' + defaults.browser + '"><span class="tab-wrapper"><img class="favicon" src="' + defaults.favicon + '" /><span class="tabtext">' + defaults.browserTitle + '</span></span></span>'
-        var browserControls = '<div class="browser-gui-controls ' + defaults.browser + '">';
+            var browserTab = '<span class="tab ' + defaults.browser + '"><span class="tab-wrapper"><img class="favicon" src="' + defaults.favicon + '" /><span class="tabtext">' + defaults.browserTitle + '</span></span></span>'
+            var browserControls = '<div class="browser-gui-controls ' + defaults.browser + '">';
+
             if (defaults.browser == 'chrome') {
                 if (contentEditable) {
                     browserControls += '<a class="back-button"><img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-back-button.png" /></a><a class="forward-button"><img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-forward-button.png" /></a><a href="#" class="refresh-button"><img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-refresh-button.png" /></a><a href="#" class="home-button"><img class="nav-buttons" src="' + defaults.filePath + 'img/' + defaults.browser + '-home-button.png" /></a>';
