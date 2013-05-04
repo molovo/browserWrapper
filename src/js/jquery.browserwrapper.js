@@ -92,7 +92,6 @@
                 return $this;
             }).find('.address-bar-text[contenteditable]').on('change', function() {
                 alert('Tada!');
-                act.find('iframe').empty();
                 act.find('iframe').attr('src', $this.html());
                 act.find('object').attr('data', $this.html());
             });
