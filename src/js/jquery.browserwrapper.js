@@ -16,7 +16,6 @@
 
     //define the browserWrapper plugin
     $.fn.browserWrapper = function (options) {
-
         //specify the plugins defauls
         var defaults = {
             browserTitle:   'Your Awesome Title',                 //title to appear on tab
@@ -28,10 +27,11 @@
             browser:        'chrome',
             makeBrowserWork:false,
             winVersion:     '',
-            theme: false
+            theme:          false,
+            themeOptions:   {}
         };
         //overwrite the defaults
-        var options         = $.extend(defaults, options);
+        var options         = $.extend(true, defaults, options);
 
         //set up variables
         var act             = $(this);
@@ -171,13 +171,22 @@
                 async: false,
                 success:  function(data) {
                     themeName = data.name;
+
+                    // Write themeOptions into DOM as a JSON string, then load defaults and overwrite
+                    act.before('<script>var themeOptions = $.parseJSON(\'[' + JSON.stringify(defaults.themeOptions) + ']\');var themeOptions = themeOptions[0];$.ajax({url: \'' + defaults.theme + 'theme-info.json\', type: \'GET\', dataType: \'json\', async: false, success: function(data) { themeOptions = $.extend(true, data.themeOptions, themeOptions); } });</script>');
                 }
             });
+
+            // Load theme HTML into browser
             act.addClass(themeName).load(defaults.theme + 'content.html', function() {
+                // Populate theme with original content
                 act.find('.browser-content-container').html(currentContent);
+
+                // Update browser with user options
                 act.find('.tabtext').html(defaults.browserTitle);
                 act.find('.address-bar-text').html(defaults.browserURL);
                 act.find('.favicon').attr('src', defaults.favicon);
+                act.css('box-shadow', defaults.shadow);
             });
         }
 
