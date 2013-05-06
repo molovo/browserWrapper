@@ -41,10 +41,6 @@
         var height          = act.height();
         var width           = act.width();
 
-        if(defaults.os == 'windows' && defaults.winVersion != 'windows7'){
-            defaults.winVersion = 'windows8';
-        }
-
         //grab current content of div so that it can be replaced
         var currentContent  = act.html();
 
@@ -53,13 +49,14 @@
             act.data('originalURL', act.find('iframe').attr('src') || act.find('object').attr('data'));
         }
 
-        if( defaults.os == 'detect' || defaults.browser == 'detect' ){
+        if( defaults.os == 'detect' || defaults.browser == 'detect' || defaults.winVersion == 'detect' ){
             // based upon http://www.quirksmode.org/js/detect.html
             var BrowserDetect = {
                 init: function () {
                     //defaults to mac/chrome when not in list
                     this.browser = this.searchString(this.dataBrowser) || "chrome";
                     this.OS = this.searchString(this.dataOS) || "mac";
+                    this.winVersion = this.searchString(this.dataVersion) || '';
                 },
                 searchString: function (data) {
                     for (var i=0;i<data.length;i++) {
@@ -97,12 +94,34 @@
                         subString: "Mac",
                         identity: "mac"
                     }
+                ],
+                dataVersion : [
+                    {
+                        string: navigator.appVersion,
+                        subString: "NT 6.0",
+                        identity: "windows7"
+                    },
+                    {
+                        string: navigator.appVersion,
+                        subString: "NT 6.1",
+                        identity: "windows7"
+                    },
+                    {
+                        string: navigator.appVersion,
+                        subString: "NT 6.2",
+                        identity: "windows8"
+                    }
                 ]
 
             };
             BrowserDetect.init();
             if (defaults.os == 'detect') {defaults.os = BrowserDetect.OS;};
             if (defaults.browser == 'detect') {defaults.browser = BrowserDetect.browser;};
+            if (defaults.winVersion == 'detect') {defaults.winVersion = BrowserDetect.winVersion;};
+        }
+
+        if(defaults.os == 'windows' && defaults.winVersion != 'windows7'){
+            defaults.winVersion = 'windows8';
         }
 
         //build the controls based on variables above
