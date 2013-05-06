@@ -41,10 +41,6 @@
         var height          = act.height();
         var width           = act.width();
 
-        if(defaults.os == 'windows' && defaults.winVersion != 'windows7'){
-            defaults.winVersion = 'windows8';
-        }
-
         //grab current content of div so that it can be replaced
         var currentContent  = act.html();
 
@@ -103,6 +99,10 @@
             BrowserDetect.init();
             if (defaults.os == 'detect') {defaults.os = BrowserDetect.OS;};
             if (defaults.browser == 'detect') {defaults.browser = BrowserDetect.browser;};
+        }
+
+        if(defaults.os == 'windows' && defaults.winVersion != 'windows7'){
+            defaults.winVersion = 'windows8';
         }
 
         //build the controls based on variables above
